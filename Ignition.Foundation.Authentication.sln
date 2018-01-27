@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2024
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ignition.Foundation.Authentication.Facebook", "Ignition.Foundation.Authentication.Facebook\Ignition.Foundation.Authentication.Facebook.csproj", "{755722A0-FD09-4765-B61E-4DF5E2D4A396}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ignition.Foundation.Authentication.Google", "Ignition.Foundation.Authentication.Google\Ignition.Foundation.Authentication.Google.csproj", "{77FAE2F7-ED8D-4F5F-9F97-D399825ED9F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ignition.Foundation.Authentication.Saml2", "Ignition.Foundation.Authentication.Saml2\Ignition.Foundation.Authentication.Saml2.csproj", "{069C7F29-7074-4C9E-9070-1B327ED87DED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ignition.Foundation.Authentication.AzureAd", "Ignition.Foundation.Authentication.AzureAd\Ignition.Foundation.Authentication.AzureAd.csproj", "{BCB63B97-DD47-40AA-84C9-359CF68590EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ignition.Foundation.Authentication.Core", "Ignition.Foundation.Authentication.Core\Ignition.Foundation.Authentication.Core.csproj", "{E9F168A9-1798-4F99-87C7-C6FCDAF099C7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{755722A0-FD09-4765-B61E-4DF5E2D4A396}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{755722A0-FD09-4765-B61E-4DF5E2D4A396}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{755722A0-FD09-4765-B61E-4DF5E2D4A396}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{755722A0-FD09-4765-B61E-4DF5E2D4A396}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77FAE2F7-ED8D-4F5F-9F97-D399825ED9F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77FAE2F7-ED8D-4F5F-9F97-D399825ED9F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77FAE2F7-ED8D-4F5F-9F97-D399825ED9F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77FAE2F7-ED8D-4F5F-9F97-D399825ED9F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{069C7F29-7074-4C9E-9070-1B327ED87DED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{069C7F29-7074-4C9E-9070-1B327ED87DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{069C7F29-7074-4C9E-9070-1B327ED87DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{069C7F29-7074-4C9E-9070-1B327ED87DED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCB63B97-DD47-40AA-84C9-359CF68590EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCB63B97-DD47-40AA-84C9-359CF68590EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCB63B97-DD47-40AA-84C9-359CF68590EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCB63B97-DD47-40AA-84C9-359CF68590EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9F168A9-1798-4F99-87C7-C6FCDAF099C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9F168A9-1798-4F99-87C7-C6FCDAF099C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9F168A9-1798-4F99-87C7-C6FCDAF099C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9F168A9-1798-4F99-87C7-C6FCDAF099C7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ABC9CA87-4149-4CA5-848B-735E3867048F}
+	EndGlobalSection
+EndGlobal
