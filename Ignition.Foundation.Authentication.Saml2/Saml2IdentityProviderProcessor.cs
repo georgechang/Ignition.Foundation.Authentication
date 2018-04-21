@@ -41,6 +41,11 @@ namespace Ignition.Foundation.Authentication.Saml2
                 LoadMetadata = true
             });
 
+            options.Notifications = new Saml2Notifications
+            {
+
+            };
+
             args.App.UseSaml2Authentication(options);
         }
 
