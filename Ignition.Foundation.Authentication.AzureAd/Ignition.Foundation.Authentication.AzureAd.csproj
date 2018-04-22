@@ -94,15 +94,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Config\Include\Authentication\AzureAD\AzureAD.config" />
-    <Content Include="App_Config\Include\Authentication\AzureAD\AzureADIdentityProvider.config" />
-    <Content Include="App_Config\Include\Authentication\AzureAD\AzureADIdentityProviderProcessor.config">
+    <Content Include="App_Config\Include\Ignition\Authentication\AzureAD\AzureAD.config" />
+    <Content Include="App_Config\Include\Ignition\Authentication\AzureAD\AzureADIdentityProvider.config" />
+    <Content Include="App_Config\Include\Ignition\Authentication\AzureAD\AzureADIdentityProviderProcessor.config">
       <SubType>Designer</SubType>
     </Content>
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
+    <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureAdIdentityProviderProcessor.cs" />

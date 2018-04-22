@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security.OpenIdConnect;
@@ -21,19 +22,26 @@ namespace Ignition.Foundation.Authentication.AzureAd
 		{
 			var clientId = Settings.GetSetting("AzureAD.ClientId");
 			var aadInstance = Settings.GetSetting("AzureAD.InstanceUrl");
-		    var tenant = Settings.GetSetting("AzureAD.TenantName");
-		    var postLogoutRedirectUri = Settings.GetSetting("AzureAD.RedirectUrl");
-
-            var authority = string.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
+		    var redirectUri = Settings.GetSetting("AzureAD.RedirectUrl");
 
             args.App.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
 			{
 			    ClientId = clientId,
-			    Authority = authority,
-			    PostLogoutRedirectUri = postLogoutRedirectUri,
-			    RedirectUri = postLogoutRedirectUri,
+                Authority = string.Format(CultureInfo.InvariantCulture, aadInstance, "common", "/v2.0 "),
+			    Scope = "openid email profile offline_access",
+			    RedirectUri = redirectUri,
+			    PostLogoutRedirectUri = redirectUri,
+			    TokenValidationParameters = new TokenValidationParameters
+			    {
+			        ValidateIssuer = false,
+			    },
+
+			    // The `AuthorizationCodeReceived` notification is used to capture and redeem the authorization_code that the v2.0 endpoint returns to your app.
+
 			    Notifications = new OpenIdConnectAuthenticationNotifications
 			    {
+                    //AuthenticationFailed = OnAuthenticationFailed,
+                    //AuthorizationCodeReceived = OnAuthorizationCodeReceived,
 			        SecurityTokenValidated = context =>
 			        {
 			            var identityProvider = GetIdentityProvider();
@@ -41,9 +49,9 @@ namespace Ignition.Foundation.Authentication.AzureAd
 			            {
 			                transformation.Transform(context.AuthenticationTicket.Identity, new TransformationContext(FederatedAuthenticationConfiguration, identityProvider));
 			            }
-                        return Task.FromResult(0);
+			            return Task.FromResult(0);
 			        }
-			    }
+                }
             });
 		}
 
