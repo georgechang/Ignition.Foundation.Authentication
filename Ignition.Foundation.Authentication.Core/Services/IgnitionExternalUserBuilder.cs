@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Sitecore.Owin.Authentication.Identity;
 using Sitecore.Owin.Authentication.Services;
 
-namespace Ignition.Foundation.Authentication
+namespace Ignition.Foundation.Authentication.Core.Services
 {
     public class IgnitionExternalUserBuilder : DefaultExternalUserBuilder
     {
