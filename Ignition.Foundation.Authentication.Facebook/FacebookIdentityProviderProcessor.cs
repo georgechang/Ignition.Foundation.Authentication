@@ -14,7 +14,6 @@ namespace Ignition.Foundation.Authentication.Facebook
 	{
 		public FacebookIdentityProviderProcessor(FederatedAuthenticationConfiguration federatedAuthenticationConfiguration) : base(federatedAuthenticationConfiguration)
 		{
-            
 		}
 
 		protected override void ProcessCore(IdentityProvidersArgs args)
@@ -26,7 +25,6 @@ namespace Ignition.Foundation.Authentication.Facebook
 			{
 				AppId = appId,
 				AppSecret = appSecret,
-                Scope = { "email", "user_birthday", "user_location" },
 			    BackchannelHttpHandler = new HttpClientHandler(),
 			    UserInformationEndpoint = "https://graph.facebook.com/v2.6/me?fields=id,email,first_name,last_name,birthday,gender",
                 Provider = new FacebookAuthenticationProvider
@@ -38,7 +36,6 @@ namespace Ignition.Foundation.Authentication.Facebook
 					    context.Identity.AddClaim(new Claim(ClaimTypes.Surname, context.User["last_name"].ToString()));
 					    context.Identity.AddClaim(new Claim(ClaimTypes.DateOfBirth, context.User["birthday"].ToString()));
 					    context.Identity.AddClaim(new Claim(ClaimTypes.Gender, context.User["gender"].ToString()));
-					    //context.Identity.AddClaim(new Claim(ClaimTypes.Locality, context.User["hometown"].ToString()));
 
                         var identityProvider = GetIdentityProvider();
 					    foreach (var transformation in identityProvider.Transformations)
