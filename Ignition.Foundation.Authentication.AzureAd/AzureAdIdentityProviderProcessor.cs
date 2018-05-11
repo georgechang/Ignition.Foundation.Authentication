@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
 using Sitecore.Configuration;
 using Sitecore.Owin.Authentication.Configuration;
+using Sitecore.Owin.Authentication.Extensions;
 using Sitecore.Owin.Authentication.Pipelines.IdentityProviders;
 using Sitecore.Owin.Authentication.Services;
 
@@ -14,41 +15,31 @@ namespace Ignition.Foundation.Authentication.AzureAd
 {
 	public class AzureAdIdentityProviderProcessor : IdentityProvidersProcessor
 	{
-		public AzureAdIdentityProviderProcessor(FederatedAuthenticationConfiguration federatedAuthenticationConfiguration) : base(federatedAuthenticationConfiguration)
+	    private readonly string _applicationId = Settings.GetSetting("AzureAD.ApplicationId");
+	    private readonly string _tenant = Settings.GetSetting("AzureAD.Tenant");
+        private readonly string _aadInstance = Settings.GetSetting("AzureAD.InstanceUrl");
+	    private readonly string _redirectUri = Settings.GetSetting("AzureAD.RedirectUrl");
+
+        public AzureAdIdentityProviderProcessor(FederatedAuthenticationConfiguration federatedAuthenticationConfiguration) : base(federatedAuthenticationConfiguration)
 		{
 		}
 
 		protected override void ProcessCore(IdentityProvidersArgs args)
 		{
-			var clientId = Settings.GetSetting("AzureAD.ClientId");
-			var aadInstance = Settings.GetSetting("AzureAD.InstanceUrl");
-		    var redirectUri = Settings.GetSetting("AzureAD.RedirectUrl");
-
             args.App.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
 			{
-			    ClientId = clientId,
-                Authority = string.Format(CultureInfo.InvariantCulture, aadInstance, "common", "/v2.0 "),
-			    Scope = "openid email profile offline_access",
-			    RedirectUri = redirectUri,
-			    PostLogoutRedirectUri = redirectUri,
-			    TokenValidationParameters = new TokenValidationParameters
-			    {
-			        ValidateIssuer = false,
-			    },
-
-			    // The `AuthorizationCodeReceived` notification is used to capture and redeem the authorization_code that the v2.0 endpoint returns to your app.
-
-			    Notifications = new OpenIdConnectAuthenticationNotifications
+			    ClientId = _applicationId,
+                Authority = string.Format(CultureInfo.InvariantCulture, _aadInstance, _tenant),
+			    RedirectUri = _redirectUri,
+			    PostLogoutRedirectUri = _redirectUri,
+                Notifications = new OpenIdConnectAuthenticationNotifications
 			    {
                     //AuthenticationFailed = OnAuthenticationFailed,
                     //AuthorizationCodeReceived = OnAuthorizationCodeReceived,
 			        SecurityTokenValidated = context =>
 			        {
 			            var identityProvider = GetIdentityProvider();
-			            foreach (var transformation in identityProvider.Transformations)
-			            {
-			                transformation.Transform(context.AuthenticationTicket.Identity, new TransformationContext(FederatedAuthenticationConfiguration, identityProvider));
-			            }
+                        context.AuthenticationTicket.Identity.ApplyClaimsTransformations(new TransformationContext(FederatedAuthenticationConfiguration, identityProvider));
 			            return Task.FromResult(0);
 			        }
                 }
