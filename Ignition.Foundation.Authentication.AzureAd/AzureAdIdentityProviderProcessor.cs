@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.IdentityModel.Tokens;
-using System.Security.Claims;
+﻿using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
@@ -13,7 +10,7 @@ using Sitecore.Owin.Authentication.Services;
 
 namespace Ignition.Foundation.Authentication.AzureAd
 {
-	public class AzureAdIdentityProviderProcessor : IdentityProvidersProcessor
+    public class AzureAdIdentityProviderProcessor : IdentityProvidersProcessor
 	{
 	    private readonly string _applicationId = Settings.GetSetting("AzureAD.ApplicationId");
 	    private readonly string _tenant = Settings.GetSetting("AzureAD.Tenant");
@@ -34,8 +31,6 @@ namespace Ignition.Foundation.Authentication.AzureAd
 			    PostLogoutRedirectUri = _redirectUri,
                 Notifications = new OpenIdConnectAuthenticationNotifications
 			    {
-                    //AuthenticationFailed = OnAuthenticationFailed,
-                    //AuthorizationCodeReceived = OnAuthorizationCodeReceived,
 			        SecurityTokenValidated = context =>
 			        {
 			            var identityProvider = GetIdentityProvider();
@@ -46,6 +41,6 @@ namespace Ignition.Foundation.Authentication.AzureAd
             });
 		}
 
-		protected override string IdentityProviderName => "AzureAD";
+		protected override string IdentityProviderName => "azuread";
 	}
 }

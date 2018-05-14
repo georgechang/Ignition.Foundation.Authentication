@@ -1,5 +1,5 @@
 ﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.Net.Compilers.2.7.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.7.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.8.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.8.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -64,11 +64,11 @@
     <Reference Include="Sitecore.Owin.Authentication, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Sitecore.Owin.Authentication.NoReferences.9.0.171219\lib\NET462\Sitecore.Owin.Authentication.dll</HintPath>
     </Reference>
-    <Reference Include="Sustainsys.Saml2, Version=0.23.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sustainsys.Saml2.0.23.0\lib\net45\Sustainsys.Saml2.dll</HintPath>
+    <Reference Include="Sustainsys.Saml2, Version=0.24.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sustainsys.Saml2.0.24.0\lib\net45\Sustainsys.Saml2.dll</HintPath>
     </Reference>
-    <Reference Include="Sustainsys.Saml2.Owin, Version=0.23.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sustainsys.Saml2.Owin.0.23.0\lib\net45\Sustainsys.Saml2.Owin.dll</HintPath>
+    <Reference Include="Sustainsys.Saml2.Owin, Version=0.24.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sustainsys.Saml2.Owin.0.24.0\lib\net45\Sustainsys.Saml2.Owin.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.IdentityModel" />
@@ -92,12 +92,6 @@
     <Content Include="App_Config\Include\Authentication\Saml2\Saml2IdentityProvider.config" />
     <Content Include="App_Config\Include\Authentication\Saml2\Saml2IdentityProviderProcessor.config" />
     <None Include="packages.config" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
@@ -105,12 +99,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Saml2IdentityProviderProcessor.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Ignition.Foundation.Authentication.Core\Ignition.Foundation.Authentication.Core.csproj">
-      <Project>{e9f168a9-1798-4f99-87c7-c6fcdaf099c7}</Project>
-      <Name>Ignition.Foundation.Authentication.Core</Name>
-    </ProjectReference>
+    <Compile Include="SitecoreClaimsAuthenticationManager.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -142,7 +131,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.7.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.7.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.8.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.8.0\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
