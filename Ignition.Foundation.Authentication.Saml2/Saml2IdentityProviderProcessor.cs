@@ -1,9 +1,12 @@
 ﻿using System;
 using System.IdentityModel.Metadata;
+using System.Security.Claims;
 using Owin;
 using Sitecore.Configuration;
 using Sitecore.Owin.Authentication.Configuration;
+using Sitecore.Owin.Authentication.Extensions;
 using Sitecore.Owin.Authentication.Pipelines.IdentityProviders;
+using Sitecore.Owin.Authentication.Services;
 using Sustainsys.Saml2.Configuration;
 using Sustainsys.Saml2.Owin;
 
@@ -32,7 +35,6 @@ namespace Ignition.Foundation.Authentication.Saml2
                 AuthenticationType = GetAuthenticationType()
             };
 
-            options.SPOptions.SystemIdentityModelIdentityConfiguration.ClaimsAuthenticationManager = new Saml2ClaimsAuthenticationManager(IdentityProviderName);
             options.IdentityProviders.Add(new Sustainsys.Saml2.IdentityProvider(new EntityId(_ipEntityId), options.SPOptions)
             {
                 MetadataLocation = _ipMetadataLocation,
@@ -41,7 +43,11 @@ namespace Ignition.Foundation.Authentication.Saml2
 
             options.Notifications = new Saml2Notifications
             {
-                
+                AcsCommandResultCreated = (result, response) =>
+                {
+                    var identityProvider = GetIdentityProvider();
+                    ((ClaimsIdentity)result.Principal.Identity).ApplyClaimsTransformations(new TransformationContext(FederatedAuthenticationConfiguration, identityProvider));
+                }
             };
 
             args.App.UseSaml2Authentication(options);
