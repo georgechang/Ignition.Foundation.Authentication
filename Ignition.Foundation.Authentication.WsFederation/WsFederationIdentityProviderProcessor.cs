@@ -1,6 +1,10 @@
 ﻿using System;
 using System.IdentityModel.Metadata;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.WsFederation;
 using Owin;
 using Sitecore.Configuration;
@@ -22,10 +26,23 @@ namespace Ignition.Foundation.Authentication.WsFederation
 
         protected override void ProcessCore(IdentityProvidersArgs args)
         {
+            var replyUri = new Uri(_wtrealm);
+
             var options = new WsFederationAuthenticationOptions
             {
+                AuthenticationType = GetAuthenticationType(),
                 MetadataAddress = _metadataAddress,
-                Wtrealm = _wtrealm
+                Wtrealm = _wtrealm,
+                Wreply = $"{replyUri.Scheme}{Uri.SchemeDelimiter}{replyUri.Authority}/signin-{IdentityProviderName}",
+                Notifications = new WsFederationAuthenticationNotifications
+                {
+                    SecurityTokenValidated = notification =>
+                    {
+                        var identityProvider = GetIdentityProvider();
+                        notification.AuthenticationTicket.Identity.ApplyClaimsTransformations(new TransformationContext(FederatedAuthenticationConfiguration, identityProvider));
+                        return Task.FromResult(0);
+                    }
+                }
             };
             args.App.UseWsFederationAuthentication(options);
         }
