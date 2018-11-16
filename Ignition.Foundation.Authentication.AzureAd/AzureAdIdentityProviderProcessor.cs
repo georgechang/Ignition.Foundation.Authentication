@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Protocols;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
 using Sitecore.Configuration;
@@ -25,6 +26,7 @@ namespace Ignition.Foundation.Authentication.AzureAd
 		{
             args.App.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
 			{
+                AuthenticationType = GetAuthenticationType(),
 			    ClientId = _applicationId,
                 Authority = string.Format(CultureInfo.InvariantCulture, _aadInstance, _tenant),
 			    RedirectUri = _redirectUri,
@@ -41,6 +43,6 @@ namespace Ignition.Foundation.Authentication.AzureAd
             });
 		}
 
-		protected override string IdentityProviderName => "azuread";
+		protected override string IdentityProviderName => "AzureAD";
 	}
 }

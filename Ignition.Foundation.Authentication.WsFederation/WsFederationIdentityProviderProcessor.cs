@@ -11,6 +11,7 @@ using Sitecore.Configuration;
 using Sitecore.Owin.Authentication.Configuration;
 using Sitecore.Owin.Authentication.Extensions;
 using Sitecore.Owin.Authentication.Pipelines.IdentityProviders;
+using Sitecore.Owin.Authentication.Pipelines.Initialize;
 using Sitecore.Owin.Authentication.Services;
 
 namespace Ignition.Foundation.Authentication.WsFederation
@@ -26,6 +27,8 @@ namespace Ignition.Foundation.Authentication.WsFederation
 
         protected override void ProcessCore(IdentityProvidersArgs args)
         {
+            args.App.UseExternalSignInCookie(GetAuthenticationType());
+
             var replyUri = new Uri(_wtrealm);
 
             var options = new WsFederationAuthenticationOptions
@@ -47,6 +50,6 @@ namespace Ignition.Foundation.Authentication.WsFederation
             args.App.UseWsFederationAuthentication(options);
         }
 
-        protected override string IdentityProviderName => "wsfed";
+        protected override string IdentityProviderName => WsFederationAuthenticationDefaults.AuthenticationType;
     }
 } 
