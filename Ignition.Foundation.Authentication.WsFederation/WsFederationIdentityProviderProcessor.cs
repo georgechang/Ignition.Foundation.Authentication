@@ -1,22 +1,16 @@
-﻿using System;
-using System.IdentityModel.Metadata;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.WsFederation;
+﻿using Microsoft.Owin.Security.WsFederation;
 using Owin;
 using Sitecore.Configuration;
 using Sitecore.Owin.Authentication.Configuration;
 using Sitecore.Owin.Authentication.Extensions;
 using Sitecore.Owin.Authentication.Pipelines.IdentityProviders;
-using Sitecore.Owin.Authentication.Pipelines.Initialize;
 using Sitecore.Owin.Authentication.Services;
+using System;
+using System.Threading.Tasks;
 
 namespace Ignition.Foundation.Authentication.WsFederation
 {
-	public class WsFederationIdentityProviderProcessor : IdentityProvidersProcessor
+    public class WsFederationIdentityProviderProcessor : IdentityProvidersProcessor
     {
         private readonly string _metadataAddress = Settings.GetSetting("WsFederation.MetadataAddress");
         private readonly string _wtrealm = Settings.GetSetting("WsFederation.Wtrealm");
