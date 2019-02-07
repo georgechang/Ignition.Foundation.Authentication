@@ -7,6 +7,8 @@ using Sitecore.Owin.Authentication.Pipelines.IdentityProviders;
 using Sitecore.Owin.Authentication.Services;
 using System;
 using System.Threading.Tasks;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
 
 namespace Ignition.Foundation.Authentication.WsFederation
 {
@@ -21,13 +23,19 @@ namespace Ignition.Foundation.Authentication.WsFederation
 
         protected override void ProcessCore(IdentityProvidersArgs args)
         {
-            args.App.UseExternalSignInCookie(GetAuthenticationType());
+            //args.App.UseExternalSignInCookie(GetAuthenticationType());
+
+            //args.App.UseCookieAuthentication(
+            //    new CookieAuthenticationOptions
+            //    {
+            //        AuthenticationType = GetAuthenticationType()
+            //    });
 
             var replyUri = new Uri(_wtrealm);
 
             var options = new WsFederationAuthenticationOptions
             {
-                AuthenticationType = GetAuthenticationType(),
+                AuthenticationType = IdentityProviderName,
                 MetadataAddress = _metadataAddress,
                 Wtrealm = _wtrealm,
                 Wreply = $"{replyUri.Scheme}{Uri.SchemeDelimiter}{replyUri.Authority}/signin-{IdentityProviderName}",
@@ -44,6 +52,6 @@ namespace Ignition.Foundation.Authentication.WsFederation
             args.App.UseWsFederationAuthentication(options);
         }
 
-        protected override string IdentityProviderName => WsFederationAuthenticationDefaults.AuthenticationType;
+        protected override string IdentityProviderName => "Federation";
     }
 } 
